@@ -1,10 +1,17 @@
 # Filtra os dados
 # cat ModoApi_Data.csv | awk -F "," '{print $2","$3","$4","$8}' > Filtered_ModoApi_Data.csv
 
-# cat 
+# retira as linhas com False
+# cat data/Filtered_ModoApi_Data.csv | grep -v "False" > data/True_Filtered_ModoApi_Data.csv
 
+# retira as linhas com NaN
+# cat data/True_Filtered_ModoApi_Data.csv | grep -v ",," > data/NaN_True_Filtered_ModoApi_Data.csv
 
-# tail -10 data/miFiltered_ModoApi_Data.csv | awk -F ',' '{cmd="date -d \""$3"\" +%s"; cmd| getline $3; close(cmd); print $1","$2","$3","$4}'
+# retira as linhas com Cabecalho
+# cat data/NaN_True_Filtered_ModoApi_Data.csv | grep -v "LocationID" > data/Header_NaN_True_Filtered_ModoApi_Data.csv
+
+# converte datas em timestemp
+# cat data/Header_NaN_True_Filtered_ModoApi_Data.csv | awk -F ',' '{cmd="date -d \""$3"\" +%s"; cmd| getline $3; close(cmd); print $1","$2","$3","$4}'  > data/Timestemp_Header_NaN_True_Filtered_ModoApi_Data.csv
 
 import pandas as pd
 import numpy as np
