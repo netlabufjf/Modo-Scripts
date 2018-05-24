@@ -18,17 +18,27 @@ import numpy as np
 import datetime as dt
 import pytz
 
-df = pd.read_csv('data/miFiltered_ModoApi_Data.csv')
+df = pd.read_csv('data/Header_NaN_True_Filtered_ModoApi_Data.csv', names=["LocationID", "CarID", "CaptureTime", "StartTime"])
+df.count()
+# limpa registros com nulo
 df = df.dropna()
-df = df[df['StartTime'] != 'False']
+
+df.dtypes
+
+df.count()
+
+df
+
+# apaga linhas com dados com False
+# df = df[df['StartTime'] != 'False']
 # df.loc[df['LocationID'].str.contains(non_numeric) == True]
 
 # visualizar os dados apagados
 # df.loc[pd.to_numeric(df['StartTime'], errors='coerce').isnull()]
 
 # apaga linhas nao numeriacas
-df['LocationID'] = pd.to_numeric(df['LocationID'], errors='coerce')
-df = df.dropna()
+# df['LocationID'] = pd.to_numeric(df['LocationID'], errors='coerce')
+# df = df.dropna()
 
 df.to_csv('data/Filtered_ModoApi_Data.csv')
 
